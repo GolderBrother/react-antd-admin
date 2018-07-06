@@ -1,0 +1,35 @@
+.tableBox {
+    position: relative;
+    margin-top: 10px;
+    .addButton{
+      position: absolute;
+      background: #169bd5;
+      top: 5px;
+      right: 12px;
+      color: #fff;
+      border: #169bd5;
+    }
+  }
+  
+  .ant-btn:focus {
+      background: #169bd5!important;
+      color: #fff!important;
+  }
+.searchbar{
+    .field{
+        float:left;
+        margin: 0 20px;
+        &:nth-child(4){
+            &> .input{
+                &> .input{
+                    display: inline-block;
+                    width: 190px!important;
+                    &> span{
+                        width: auto !important;
+                    }
+                }
+            }
+        }
+    }
+} 
+ 
