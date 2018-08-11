@@ -35,7 +35,7 @@ export default class Table extends React.Component {
     this.makeColumns(header, action, headerWidth, data);
   }
 
-  //设置列
+  //设置列 表头
   makeColumns(headers, action, headerWidth, data) {
     this.columns = this.props.noIndex ? [] : [{
       dataIndex: 'rowIndex',
@@ -43,7 +43,7 @@ export default class Table extends React.Component {
       width: 100,
       fixed: this.props.rowIndexFixed,
     }];
-
+    // header 表头
     for (const header of headers) {
       this.columns.push({
         ...header,
@@ -54,11 +54,11 @@ export default class Table extends React.Component {
         key: 'x',
         title: '操作',
         width: 200,
-        //fixed: this.props.fixed,
+        // fixed: this.props.rowIndexFixed,
         render: (row) => {
           const actions = action(row);
           if (!actions) {
-            return <div />;
+            return <div></div>;
           }
           const buttons = actions.map(({ color, name, key, icon, hidden, children }) => {
             if (children) {
@@ -140,7 +140,7 @@ export default class Table extends React.Component {
       <div className="myy-table">
         <AntTable
           dataSource={this.props.data.map((row, i) => ({ ...row, rowIndex: i + 1, key: i + 1 }))}
-          columns={this.columns}
+          columns={this.columns} //表头
           
           loading={this.props.loading}
           pagination={this.props.pagination !== false ? {

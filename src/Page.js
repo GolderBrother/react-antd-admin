@@ -8,8 +8,16 @@ import ChangePwd from '@/views/login/ChangePwd';
 export default () => (
     <Router>
         <Switch>
-            {/* <Route exact path="/" render={() => <Redirect to="/app/dashboard/index" push />} />   */}
-            <Route exact path="/" render={() => <Redirect to="/login" push />} /> 
+            <Route exact path="/" render = {
+                () => {
+                    console.log('localStorage',localStorage.getItem('user').length)
+                    if(localStorage.getItem('user') || localStorage.getItem('user').length){
+                        return <Redirect to="/app" push/>
+                    }else{
+                        return <Redirect to="/login" push/>
+                    }
+                }
+            } />
             <Route exaxt path="/register" component={Register} />    
             <Route exact path="/changePwd" component={ChangePwd} /> 
             <Route path="/app" component={App} />

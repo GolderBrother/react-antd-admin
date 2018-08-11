@@ -1,0 +1,39 @@
+$px_5: 5px;
+$px_10: 20px;
+$px_50: 50px;
+$px_n25: -25px; 
+$perce_50: 50%;
+#waterfall {
+    position: relative;
+}
+
+.waterfall-box {
+    float: left;
+    padding-left: $px_10;
+    padding-bottom: $px_10;
+    width: 200px;
+    border-radius: 2px;
+}
+
+.waterfall-loading {
+    position: fixed;
+    top: $perce_50;
+    left: $perce_50;
+    margin-top: $px_n25;
+    margin-left: $px_n25;
+    width: $px_50;
+    height: $px_50;
+    border: $px_5 solid #eee;
+    border-top: $px_5 solid #3aacd7;
+    border-radius: $perce_50;
+    animation: 1s infinite linear loading;
+}
+
+@keyframes loading {
+    from {
+        transform: rotate(0deg);
+    }
+    to {
+        transform: rotate(360deg);
+    }
+}

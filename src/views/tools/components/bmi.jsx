@@ -93,11 +93,11 @@ class BmiBox extends React.Component{
                     <Row type="flex" justify="center">
                         <Col span={10}>
                             <Card id="cardWrap">
-                                <p className={i === 1 ? 'activeP' : ''}>偏瘦{'<18.5'}</p>
-                                <p className={i === 2 ? 'activeP' : ''}>正常{'18.5-24.9'}</p>
-                                <p className={i === 3 ? 'activeP' : ''}>超重{'18.5-24.9'}</p>
-                                <p className={i === 4 ? 'activeP' : ''}>偏胖{'25.0-29.0'}</p>
-                                <p className={i === 5 ? 'activeP' : ''}>肥胖{'18.5-24.9'}</p>
+                                <p className={i == 1 ? 'activeP' : ''}>偏瘦{'<18.5'}</p>
+                                <p className={i == 2 ? 'activeP' : ''}>正常{'18.5-24.9'}</p>
+                                <p className={i == 3 ? 'activeP' : ''}>超重{'18.5-24.9'}</p>
+                                <p className={i == 4 ? 'activeP' : ''}>偏胖{'25.0-29.0'}</p>
+                                <p className={i == 5 ? 'activeP' : ''}>肥胖{'18.5-24.9'}</p>
                             </Card>
                         </Col>
                     </Row>

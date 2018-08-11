@@ -26,67 +26,67 @@ class Login extends React.Component {
         }
     }
     handleSubmit = (e) => {
-        let Timer = null,_this = this;;
+        let Timer = null, _this = this;;
         e.preventDefault();
-        this.props.form.validateFields((err, values) => {
+        this.props.form.validateFields(async (err, values) => {
             if (!err) {
                 console.log('Received values of form: ', values);
                 const { fetchData } = this.props;
                 const data = {
-                    username : values.userName,
-                    password : values.password
+                    username: values.userName,
+                    password: values.password
                 }
-                axios.post('/login',data).then((res) => {
+                console.log(data)
+                try {
+                    let res = await axios.post('/login', data);
                     console.log(res.data);
-                    if(res.data.status == -1){
+                    if (res.data.status == -1) {
                         message.error('用户名不存在');
-                    }else if(res.data.status == -2){
+                    } else if (res.data.status == -2) {
                         message.error('密码不正确');
-                    }else{
-                        fetchData({funcName: 'admin', stateName: 'auth'});
-                        _this.openNotificationWithIcon('info',data.username,'登陆成功','欢迎回来');
+                    } else {
+                        fetchData({ funcName: 'admin', stateName: 'auth' });
+                        _this.openNotificationWithIcon('info', data.username, '登陆成功', '欢迎回来');
                         // localStorage.getItem('user').userName = data.username;
                         // let userInfo = JSON.parse(localStorage.getItem('user'));
                         // 初始化用户权限信息
                         let userAuth = {
-                            "uid":    1,
-                            "permissions":["auth","auth/testPage","auth/authPage","auth/authPage/edit","auth/authPage/visit"],
-                            "role":"系统管理员",
-                            "roleType":1,
-                            "userName":"系统管理员"
+                            "uid": 1,
+                            "permissions": ["auth", "auth/testPage", "auth/authPage", "auth/authPage/edit", "auth/authPage/visit"],
+                            "role": "系统管理员",
+                            "roleType": 1,
+                            "userName": "系统管理员"
                         }
                         userAuth.userName = data.username;
-                        localStorage.setItem('user',JSON.stringify(userAuth));
-                        sessionStorage.setItem('user',JSON.stringify(userAuth));
-                        Timer = setInterval(function(){
-                            _this.props.history.push('/app/dashboard/index'); ;
+                        localStorage.setItem('user', JSON.stringify(userAuth));
+                        sessionStorage.setItem('user', JSON.stringify(userAuth));
+                        Timer = setInterval(function () {
+                            _this.props.history.push('/app/dashboard/index');;
                             clearInterval(Timer);
-                        },1000)
+                        }, 1000)
                     };
-                },(err => {
-                    console.log(err);
-                })).catch(err => {
-                    console.log(err)
-                })
+                } catch (error) {
+                    console.log(error)
+                }
                 if (values.userName === 'guest' && values.password === 'guest') {
-                    fetchData({funcName: 'guest', stateName: 'auth'})
+                    fetchData({ funcName: 'guest', stateName: 'auth' })
                 };
             }
         });
     };
     // 提醒框,弹出登陆成功信息框
-    openNotificationWithIcon = (type,user,msg,des) => {
+    openNotificationWithIcon = (type, user, msg, des) => {
         return notification[type]({
-            message:msg,  
-            description:`${des}：${user}!`,
+            message: msg,
+            description: `${des}：${user}!`,
             icon: <Icon type="smile-circle" style={{ color: '#108ee9' }} />,
-            duration:5
+            duration: 5
         })
     };
     gitHub = () => {
         window.location.href = 'https://github.com/login/oauth/authorize?client_id=792cdcd244e98dcd2dee&redirect_uri=http://localhost:3006/&scope=user&state=reactAdmin';
     };
-    register = ()=> {
+    register = () => {
         this.props.history.push('/register');
     };
     changePwd = () => {
@@ -100,7 +100,7 @@ class Login extends React.Component {
                     <div className="login-logo">
                         <span>React Admin</span>
                     </div>
-                    <Form onSubmit={this.handleSubmit} style={{maxWidth: '300px'}}>
+                    <Form onSubmit={this.handleSubmit} style={{ maxWidth: '300px' }}>
                         <FormItem>
                             {getFieldDecorator('userName', {
                                 rules: [{ required: true, message: '请输入用户名!' }],
@@ -113,7 +113,7 @@ class Login extends React.Component {
                             {getFieldDecorator('password', {
                                 rules: [{ required: true, message: '请输入密码!' }],
                             })(
-                                <Input prefix={<Icon type="lock" style={{ fontSize: 13 }} />} type="password" placeholder="管理员输入james123" />
+                                <Input prefix={<Icon type="lock" style={{ fontSize: 13 }} />} type="password" placeholder="管理员输入123456" />
                             )}
                         </FormItem>
                         <FormItem>
@@ -123,11 +123,11 @@ class Login extends React.Component {
                             })(
                                 <Checkbox>记住我</Checkbox>
                             )}
-                            <a className="login-form-forgot" onClick={this.changePwd} style={{float: 'right'}}>忘记密码</a>
-                            <Button type="primary" htmlType="submit" className="login-form-button" style={{width: '100%'}}>
+                            <a className="login-form-forgot" onClick={this.changePwd} style={{ float: 'right' }}>忘记密码</a>
+                            <Button type="primary" htmlType="submit" className="login-form-button" style={{ width: '100%' }}>
                                 登录
                             </Button>
-                            <p style={{display: 'flex', justifyContent: 'space-between'}}>
+                            <p style={{ display: 'flex', justifyContent: 'space-between' }}>
                                 <a onClick={this.register}>或 现在就去注册!</a>
                                 <a onClick={this.gitHub} ><Icon type="github" />(第三方登录)</a>
                             </p>

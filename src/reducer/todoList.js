@@ -60,7 +60,7 @@ export const setVisibility = handleActions({
     console.log({ ...state})
     console.log({...action.payload})
     console.log({ ...state, ...action.payload})
-    //注意，后面的属性会把前面的覆盖掉
+    //扩展运算符 注意，后面的属性会把前面的覆盖掉
     return { ...state, ...action.payload}
   }
 }, setVisibilityInit)

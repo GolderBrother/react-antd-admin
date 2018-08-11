@@ -28,7 +28,7 @@ class ChangePwd extends React.Component {
     }
     handleSubmit = (e) => {
         e.preventDefault();
-        this.props.form.validateFields((err,values) => {
+        this.props.form.validateFields(async (err,values) => {
             let Timer = null,
                 _this = this;
             if(!err){
@@ -39,32 +39,33 @@ class ChangePwd extends React.Component {
                     telephone:values.telephone,
                     newpassword:values.password
                 };
-                axios.post('/changePwd',userData).then(res => {
+                try{
+                    let res = await axios.post('/changePwd',userData);
+                    console.log(res,res.data.status);
                     let status = res.status,
-                        dataStatus = res.data.status;
-                    if(status == 200){
-                        console.log(res,res.data.status);
-                        if(dataStatus == -2){
-                            // 服务器出错
-                            message.error(res.data.msg);
-                        }else if(dataStatus == -1){
-                            // 该用户不存在
-                            console.log(res.data.msg);
-                            message.error(res.data.msg);
-                        }else if(dataStatus == 1){
-                            console.log(res.data.msg);
-                            this.openNotificationWithIcon('info',userData.username,'更改成功','前往重新登录');
-                            Timer = setTimeout(function(){
-                                _this.props.history.push('/login');
-                                clearInterval(Timer);
-                            },3000)
-                        }else{
-                            message.error('System error');
-                        }
-                    }
-                }).catch(err => {
-                    console.log(err);
-                })
+                    dataStatus = res.data.status;
+                    if(status === 200){
+                      if(dataStatus === -2){
+                          // 服务器出错
+                          message.error(res.data.msg);
+                      }else if(dataStatus === -1){
+                          // 该用户不存在
+                          console.log(res.data.msg);
+                          message.error(res.data.msg);
+                      }else if(dataStatus === 1){
+                          console.log(res.data.msg);
+                          this.openNotificationWithIcon('info',userData.username,'更改成功','前往重新登录');
+                          Timer = setTimeout(function(){
+                              _this.props.history.push('/login');
+                              clearInterval(Timer);
+                          },3000)
+                      }else{
+                          message.error('System error');
+                      }
+                  }
+                }catch(error){
+                    console.log(error)
+                }
             }
         })
     }

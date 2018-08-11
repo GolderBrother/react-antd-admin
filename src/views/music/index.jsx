@@ -34,9 +34,11 @@ export default class Music extends React.Component {
         this.state = {
             tData: [],   //数据
             item: {},    //当前某条数据
+            noIndex: false,  //是否无序
             loading: true,  //加载中
             modalShow: false,   //弹层显示
             modalShowEdit: false, //编辑弹层显示
+            rowIndexFixed: true   //列是否固定
         }
         this.add = this.add.bind(this)
         this.onOk = this.onOk.bind(this)
@@ -369,6 +371,8 @@ export default class Music extends React.Component {
                     <div style={{ paddingTop: 43 }}>
                         <Table
                             onClick={this.tableAction}
+                            noIndex={this.state.noIndex}
+                            rowIndexFixed={this.state.rowIndexFixed} //列是否固定
                             pagination={true}     //是否需要分页
                             pageSize={30}           //一页10条
                             currentPage={2}        //当前页数

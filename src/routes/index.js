@@ -26,11 +26,13 @@ import Bundle from '@/components/widget/Bundle';
 import Cssmodule from '@/components/cssmodule';
 import MapUi from '@/components/ui/map';
 import Dashboard from '@/views/dashboard';
-import Login from '@/views/login/Login';
+// import Login from '@/views/login/Login';
 import Music from '@/views/music';
 import Album from '@/views/album';
+import Search from '@/views/search';
 import Tools from '@/views/tools';
-import Note from '@/views/note';
+import Todo from '@/views/todo';
+import Follow from '@/views/follow';
 import TodoList from '@/views/todolist';
 import Editor from '@/views/editor';
 import AuthBasic from '@/views/auth/Basic';
@@ -67,6 +69,12 @@ export default class CRouter extends Component {
 
                 <Route exact path="/app/album" component={Album}/>
 
+                <Route exact path="/app/search" component={Search}/>
+
+                <Route exact path="/app/follow" component={Follow}/>
+
+                <Route exact path="/app/todo" component={Todo}/>
+
                 <Route exact path="/app/ui/icons" component={Icons} />
                 <Route exact path="/app/ui/buttons" component={Buttons} />
                 <Route exact path="/app/ui/spins" component={Spins} />
@@ -86,9 +94,17 @@ export default class CRouter extends Component {
                 <Route exact path="/app/auth/routerEnter" component={(props) => this.requireAuth('auth/testPage', <RouterEnter {...props} />)} />
 
                 <Route exact path="/app/cssModule" component={Cssmodule} />
-                <Route exact path="/app/note" component={Note} />
-                <Route exact path="/" component={Login} />
+                <Route exact path="/app" render = {() => <Redirect to='/app/dashboard/index' />} />
                 <Route render={() => <Redirect to="/404" />} />
+                {/* <Route exact path="/" render = {
+                () => {
+                    if(localStorage.getItem('user')){
+                        return <Redirect to="/app" push/>
+                    }else{
+                        return <Redirect to="/login" push/>
+                    }
+                } */}
+            } />
             </Switch>
         )
     }

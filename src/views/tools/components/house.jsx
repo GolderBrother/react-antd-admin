@@ -13,9 +13,10 @@ class House extends React.Component{
             suggest:''
         }
     };
-    // 改变数据是异步的，因此会先执行后面的方法，可以把要执行的方法放在回掉函数中执行
+    // 改变数据setState是异步的，因此会先执行后面的方法，可以把要执行的方法放在回掉函数中执行
     handleRent = (e) => {
         const rentVal = e.target.value;
+        // 设置状态值,回调函数
         this.setState({rent:rentVal},()=>this.handleRentAll());
     };
     handleYear = (e) => {
