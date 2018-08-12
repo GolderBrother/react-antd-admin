@@ -16,12 +16,30 @@ class Login extends React.Component {
         const { receiveData } = this.props;
         receiveData(null, 'auth');
     }
-    componentWillReceiveProps(nextProps) {
+    /* 
+        componentWillReceiveProps(nextProps) {
         // 接收父组件传递来的属性
         const { auth: nextAuth = {} } = nextProps;
         const { history } = this.props;
         if (nextAuth.data && nextAuth.data.uid) {   // 判断是否登陆
             localStorage.setItem('user', JSON.stringify(nextAuth.data));
+            history.push('/');
+        }
+    }
+    */
+    // React 16.3+弃用componentWillReceiveProps
+    // 组件更新结束之后执行，在初始化render时不执行
+    componentDidUpdate(prevProps){
+        // 接收父组件传递过来的组件
+        const { auth: nextAuth = {},history } = prevProps;
+        console.log('login prevProps:'+prevProps)
+        if(nextAuth.data && nextAuth.data.uid){ // 判断是否登陆
+            localStorage.setItem('user',JSON.stringify(nextAuth.data));
+            history.push('/');
+        }
+        const windowHref = window.location.href;
+        console.log('route:'+windowHref)
+        if(windowHref.indexOf('james')){
             history.push('/');
         }
     }
@@ -84,7 +102,8 @@ class Login extends React.Component {
         })
     };
     gitHub = () => {
-        window.location.href = 'https://github.com/login/oauth/authorize?client_id=792cdcd244e98dcd2dee&redirect_uri=http://localhost:3006/&scope=user&state=reactAdmin';
+        window.location.href = 'https://github.com/login/oauth/authorize?client_id=792cdcd244e98dcd2dee&redirect_uri=http://localhost:3000/&scope=user&state=reactAdmin';
+        // window.location.href = 'https://github.com/login/oauth/authorize?client_id=792cdcd244e98dcd2dee&redirect_uri=http://localhost:3000/&scope=james&state=reactAdmin';
     };
     register = () => {
         this.props.history.push('/register');

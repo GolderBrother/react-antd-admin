@@ -30,7 +30,7 @@ export default class Follow extends React.Component{
                 <div><a href="https://github.com/GolderBrother/react-antd-admin" className="welcome animated flip text" style={{color:col}}>项目地址</a></div>
                 <img src={require('../../style/imgs/face.png')}/>
                 <div className="animated swing discribe">本项目中，会把平时工作、学习中</div>
-                <div className="animated swing discribe">遇到的事抽象成demo给展现出来。欢迎 <a href="https://github.com/GolderBrother/react-antd-admin">Star</a></div>
+                <div className="animated swing discribe">遇到的事抽象成demo给展现出来。欢迎 <a href="https://github.com/GolderBrother/react-antd-admin">Star</a>,更多模块正在开发中...</div>
             </div>
         )
     }

@@ -79,6 +79,10 @@ export const menus = [{
             title: '时光相册',
             icon: 'edit'
         }]
+    },{
+        key:'/app/waterfall',
+        title:'瀑布流',
+        icon:'rocket'
     }, {
         key: '/app/tools',
         title: '工具类',
@@ -207,7 +211,7 @@ export const menus = [{
     },
     {
         key: '/app/follow',
-        title: '记录当下',
+        title: '小博客',
         icon: 'star',
     }, {
         key: '/app/todo',

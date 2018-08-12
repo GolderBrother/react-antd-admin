@@ -12,7 +12,7 @@ import Notifications from '@/components/ui/Notifications';
 import Tabs from '@/components/ui/Tabs';
 import Banners from '@/components/ui/banners';
 import Drags from '@/components/ui/Draggable';
-import Gallery from '@/components/ui/Gallery';
+import Gallery from '@/components/ui/Gallery'; 
 import Echarts from '@/components/charts/Echarts';
 import Recharts from '@/components/charts/Recharts';
 import BasicForm from '@/components/forms/BasicForm';
@@ -35,6 +35,7 @@ import Todo from '@/views/todo';
 import Follow from '@/views/follow';
 import TodoList from '@/views/todolist';
 import Editor from '@/views/editor';
+import Waterfall from '@/views/waterfall';
 import AuthBasic from '@/views/auth/Basic';
 import RouterEnter from '@/views/auth/RouterEnter';
 const WysiwygBundle = (props) => (
@@ -51,10 +52,22 @@ export default class CRouter extends Component {
         if (!permissions || !permissions.includes(permission)) return <Redirect to={'404'} />;
         return component;
     };
+    requireLogin = (component,permission) => {
+        const { auth } = this.props;
+        const { permissions } = auth.data;
+        // 线上环境判断是否登录
+        if(process.env.NODE_ENV === 'production' && !permissions){
+            return <Redirect to='/login' />
+        }
+        // 如果有quanxian 
+        return permission ? this.requireAuth(permission, component) : component;
+
+    }
     render() {
         return (
             <Switch>
-                <Route exact path="/app/dashboard/index" component={Dashboard} />
+                {/* exact 精准匹配路由 */}
+                <Route exact path="/app/dashboard" component={Dashboard} />
                 <Route exact path="/app/form/basicForm" component={BasicForm} />
                 <Route exact path="/app/table/basicTable" component={BasicTable} />
                 <Route exact path="/app/table/advancedTable" component={AdvancedTable} />
@@ -75,6 +88,8 @@ export default class CRouter extends Component {
 
                 <Route exact path="/app/todo" component={Todo}/>
 
+                <Route exact path="/app/waterfall" component={Waterfall} />
+
                 <Route exact path="/app/ui/icons" component={Icons} />
                 <Route exact path="/app/ui/buttons" component={Buttons} />
                 <Route exact path="/app/ui/spins" component={Spins} />
@@ -94,7 +109,7 @@ export default class CRouter extends Component {
                 <Route exact path="/app/auth/routerEnter" component={(props) => this.requireAuth('auth/testPage', <RouterEnter {...props} />)} />
 
                 <Route exact path="/app/cssModule" component={Cssmodule} />
-                <Route exact path="/app" render = {() => <Redirect to='/app/dashboard/index' />} />
+                <Route exact path="/app" render = {() => <Redirect to='/app/dashboard' />} />
                 <Route render={() => <Redirect to="/404" />} />
                 {/* <Route exact path="/" render = {
                 () => {

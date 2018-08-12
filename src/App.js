@@ -13,6 +13,7 @@ const { Content, Footer } = Layout;
 class App extends Component {
     state = {
         collapsed: false,
+        year:new Date().getFullYear()
     };
     componentWillMount() {
         const { receiveData } = this.props;
@@ -77,7 +78,7 @@ class App extends Component {
                         <div className="ant-back-top-inner">UP</div>
                     </BackTop>
                     <Footer style={{ textAlign: 'center' }}>
-                    React-Admin ©2018 Created by 1204788939@qq.com
+                    React-Admin ©{ this.state.year } Created by 1204788939@qq.com
                     </Footer>
                 </Layout>
                 

@@ -70,7 +70,8 @@ react-admin system solution
     - recharts图表
 - 工具类
     - 小工具
-    - 待办事项
+- 待办事项
+- 博客小日记
 - 编辑器 
     - 富文本编辑器(支持MarkDown)
 - 权限管理
@@ -151,15 +152,19 @@ react-admin system solution
 |   +-- view                                ---视图组件
 |   |    +-- album                          ---画廊模块
 |   |    |    --- ...     
-|   |    +-- dashboard                      ---首页
-|   |    +-- editor                         ---编辑器
-|   |    +-- login                          ---登录模块
-|   |    +-- register                       ---注册模块
-|   |    +-- music                          ---音乐模块
-|   |    +-- tools                          ---工具类
-|   |    |    --- ...   
 |   |    +-- auth                           ---权限管理
 |   |    |    --- ...   
+|   |    +-- dashboard                      ---首页
+|   |    +-- editor                         ---编辑器
+|   |    +-- follow                         ---小博客
+|   |    +-- login                          ---登录模块
+|   |    +-- music                          ---音乐模块
+|   |    +-- register                       ---注册模块
+|   |    +-- tools                          ---工具类
+|   |    |    --- ...   
+|   |    +-- todolist                       ---待办事项
+|   |    +-- search                         ---搜索引擎(百度、360搜索、搜狐搜索)
+|   |    +-- waterfall                      ---瀑布流
 |   +-- style                               ---项目的样式存放目录，主要采用less编写
 |   +-- utils                               ---工具文件存放目录
 |   --- App.js                              ---组件入口文件
