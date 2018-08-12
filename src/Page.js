@@ -10,8 +10,8 @@ export default () => (
         <Switch>
             <Route exact path="/" render = {
                 () => {
-                    console.log('localStorage',localStorage.getItem('user').length)
-                    if(localStorage.getItem('user') || localStorage.getItem('user').length){
+                    console.log('localStorage',localStorage.getItem('user'))
+                    if(localStorage.getItem('user') && localStorage.getItem('user').length){
                         return <Redirect to="/app" push/>
                     }else{
                         return <Redirect to="/login" push/>

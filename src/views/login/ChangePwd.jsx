@@ -6,7 +6,7 @@ import { Form, Icon, Input, Button, Checkbox, notification, message } from 'antd
 import { connect } from 'react-redux';
 import { bindActionCreators } from 'redux';
 import { fetchData, receiveData } from '@/action';
-import axios from 'axios';
+import * as $http from '../../axios/request';
 
 const FormItem = Form.Item;
 class ChangePwd extends React.Component {
@@ -40,11 +40,10 @@ class ChangePwd extends React.Component {
                     newpassword:values.password
                 };
                 try{
-                    let res = await axios.post('/changePwd',userData);
+                    let res = await $http.post({url:'/changePwd',data:userData});
                     console.log(res,res.data.status);
-                    let status = res.status,
-                    dataStatus = res.data.status;
-                    if(status === 200){
+                    const dataStatus = res.data.status;
+                    if(res.status === 200){
                       if(dataStatus === -2){
                           // 服务器出错
                           message.error(res.data.msg);
@@ -64,7 +63,7 @@ class ChangePwd extends React.Component {
                       }
                   }
                 }catch(error){
-                    console.log(error)
+                    console.log(error);
                 }
             }
         })

@@ -2,10 +2,8 @@
  * Created by james.zhang on 2018/4/13.
  */
 import React, { Component } from 'react';
-import { Card, Form, Input, Tooltip, Icon, Cascader, Select, Row, Col, Checkbox, Button, notification } from 'antd';
-import BreadcrumbCustom from '@/components/breadcrumbCustom';
-import * as $http from '@/axios/tools';
-import axios from 'axios';
+import { Card, Form, Input, Tooltip, Icon, Cascader, Select, Row, Col, Checkbox, Button, notification,message } from 'antd';
+import * as $http from '../../axios/request';
 const FormItem = Form.Item;
 const Option = Select.Option;
 
@@ -50,13 +48,13 @@ class BasicForms extends Component {
                         telephone: values.phone
                     };
                     console.log(data)
-                    let res = await axios.post('/regVerify', data);
+                    let res = await $http.post({url:'/regVerify', data:data});
                     console.log(res);
                     if (res.status === 200 && res.data.status === 1) {
                         data.password = values.password;
                         data.telephone = values.phone;
                         console.log(data);
-                        let regRes = await axios.post('/register', data);
+                        let regRes = await $http.post({url:'/register', data:data});
                         console.log(regRes);
                         if (regRes.data.status === 1) {
                             _this.openNotificationWithIcon('info', data.username);
@@ -66,7 +64,7 @@ class BasicForms extends Component {
                             }, 3000);
                         };
                     } else {
-                        console.log('data error')
+                        message.error('data error');
                     }
                 } catch (error) {
                     console.log(error);

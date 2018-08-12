@@ -6,8 +6,7 @@ import { Form, Icon, Input, Button, Checkbox, notification, message } from 'antd
 import { connect } from 'react-redux';
 import { bindActionCreators } from 'redux';
 import { fetchData, receiveData } from '@/action';
-import * as $http from '../../axios/tools';
-import axios from 'axios';
+import * as $http from '../../axios/request';
 
 const FormItem = Form.Item;
 
@@ -37,11 +36,6 @@ class Login extends React.Component {
             localStorage.setItem('user',JSON.stringify(nextAuth.data));
             history.push('/');
         }
-        const windowHref = window.location.href;
-        console.log('route:'+windowHref)
-        if(windowHref.indexOf('james')){
-            history.push('/');
-        }
     }
     handleSubmit = (e) => {
         let Timer = null, _this = this;;
@@ -56,7 +50,7 @@ class Login extends React.Component {
                 }
                 console.log(data)
                 try {
-                    let res = await axios.post('/login', data);
+                    let res = await $http.post({url:'/login', data:data});
                     console.log(res.data);
                     if (res.data.status == -1) {
                         message.error('用户名不存在');
@@ -79,7 +73,7 @@ class Login extends React.Component {
                         localStorage.setItem('user', JSON.stringify(userAuth));
                         sessionStorage.setItem('user', JSON.stringify(userAuth));
                         Timer = setInterval(function () {
-                            _this.props.history.push('/app/dashboard/index');;
+                            _this.props.history.push('/app/dashboard');;
                             clearInterval(Timer);
                         }, 1000)
                     };
@@ -102,8 +96,9 @@ class Login extends React.Component {
         })
     };
     gitHub = () => {
-        window.location.href = 'https://github.com/login/oauth/authorize?client_id=792cdcd244e98dcd2dee&redirect_uri=http://localhost:3000/&scope=user&state=reactAdmin';
-        // window.location.href = 'https://github.com/login/oauth/authorize?client_id=792cdcd244e98dcd2dee&redirect_uri=http://localhost:3000/&scope=james&state=reactAdmin';
+        // 这边需要到github 做 第三方授权登录
+        // 不会的移步 https://blog.csdn.net/javagaorui5944/article/details/52918772
+        window.location.href = 'https://github.com/login/oauth/authorize?client_id=33ad9a07e3517eb271d8&redirect_uri=http://127.0.0.1:3006/&scope=james&state=reactAdmin';
     };
     register = () => {
         this.props.history.push('/register');

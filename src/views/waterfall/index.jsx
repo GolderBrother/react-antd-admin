@@ -49,7 +49,8 @@ export default class Waterfall extends React.Component {
             const img = new Image();//创建一个Image对象，实现图片的预下载
             img.src = item;
             if (img.complete) {
-                completeCount++
+                completeCount++;
+                console.log('completeCount;',completeCount)
             } else {
                 img.onload = () => {
                     count++;
@@ -62,7 +63,6 @@ export default class Waterfall extends React.Component {
         if (completeCount == urlList.length) {
             callback()
         }
-
     }
 
     render() {
