@@ -44,14 +44,14 @@ class ChangePwd extends React.Component {
                     console.log(res,res.data.status);
                     const dataStatus = res.data.status;
                     if(res.status === 200){
-                      if(dataStatus === -2){
+                      if(dataStatus == -2){
                           // 服务器出错
                           message.error(res.data.msg);
-                      }else if(dataStatus === -1){
+                      }else if(dataStatus == -1){
                           // 该用户不存在
                           console.log(res.data.msg);
                           message.error(res.data.msg);
-                      }else if(dataStatus === 1){
+                      }else if(dataStatus == 1){
                           console.log(res.data.msg);
                           this.openNotificationWithIcon('info',userData.username,'更改成功','前往重新登录');
                           Timer = setTimeout(function(){

@@ -49,14 +49,14 @@ class BasicForms extends Component {
                     };
                     console.log(data)
                     let res = await $http.post({url:'/regVerify', data:data});
-                    console.log(res);
-                    if (res.status === 200 && res.data.status === 1) {
+                    console.log('regRes:'+res);
+                    if (res.status === 200 && res.data.status == 1) {
                         data.password = values.password;
                         data.telephone = values.phone;
                         console.log(data);
                         let regRes = await $http.post({url:'/register', data:data});
                         console.log(regRes);
-                        if (regRes.data.status === 1) {
+                        if (regRes.data.status == 1) {
                             _this.openNotificationWithIcon('info', data.username);
                             Timer = setTimeout(function () {
                                 _this.props.history.push('/login');
@@ -64,7 +64,7 @@ class BasicForms extends Component {
                             }, 3000);
                         };
                     } else {
-                        message.error('data error');
+                        message.error(res.data.msg);
                     }
                 } catch (error) {
                     console.log(error);
@@ -233,7 +233,7 @@ class BasicForms extends Component {
                                                 {getFieldDecorator('captcha', {
                                                     rules: [{ required: true, message: '请输入你获取的验证码!' }],
                                                 })(
-                                                    <Input size="large" />
+                                                    <Input size="large" placeholder='验证码随便填'/>
                                                 )}
                                             </Col>
                                             <Col span={12}>
