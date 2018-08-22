@@ -210,7 +210,6 @@ npm start
     - 替换antd Col 组件的响应式栅格为md(具体参数用法请查看antd官方文档)
     - 初始化页面是获取当前浏览器宽度设置菜单显示类型
     - 监听window的onresize函数，设置菜单显示类型。PS：浏览器宽度存入redux中，方便组件之间传递。
-![截图](https://raw.githubusercontent.com/yezihaohao/react-admin/master/src/style/imgs/mobile.gif)
 #### 2018-05-13
 - 依赖包版本升级
     - antd@2.13.1
